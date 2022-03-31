@@ -1,0 +1,7 @@
+.secrets
+.terraform
+terraform.tfstate.backup
+.terraform.lock.hcl
+.dccache
+terraform.tfvars
+tfapply

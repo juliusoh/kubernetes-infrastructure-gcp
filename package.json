@@ -1,0 +1,13 @@
+{
+  "name": "project-infrastructure",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "apply": "bash .scripts/apply.sh",
+    "destroy": "bash .scripts/destroy.sh",
+    "k8s": "bash .scripts/k8s.sh",
+    "plan": "bash .scripts/plan.sh"
+  },
+  "author": "",
+  "license": "ISC"
+}
