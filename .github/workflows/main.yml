@@ -19,18 +19,18 @@ jobs:
 
       - name: Plan
         run: |
-          /bin/sh scripts/plan.sh
+          /bin/sh .scripts/plan.sh
 
       - name: apply
         run: |
-          /bin/sh scripts/apply.sh
+          /bin/sh .scripts/apply.sh
 
       - name: authenticate
         run: |
-          /bin/sh scripts/authenticate.sh
+          /bin/sh .scripts/authenticate.sh
 
       - name: deploy
         run: |
           export KUBECONFIG=kube.conf
           sed -i -e "s/{{CERT_MANAGER_KEY}}/${CERT_MANAGER_KEY}/" ./k8s/cert-manager-issuer/values.yaml
-          /bin/sh scripts/k8s.sh
+          /bin/sh .scripts/k8s.sh
