@@ -17,7 +17,9 @@ source .scripts/variables.sh
 if test "$GCP_CI_SERVICE_KEY"
 then
   mkdir -p .secrets && echo $GCP_SERVICE_KEY > .secrets/service-key.json
+  echo 'hello world'
   cat .secrets/service-key.json
+  echo 'bye world'
 fi
 
 
