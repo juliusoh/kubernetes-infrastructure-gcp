@@ -16,10 +16,7 @@ source .scripts/variables.sh
 
 if test "$GCP_CI_SERVICE_KEY"
 then
-  echo $GCP_CI_SERVICE_KEY
-  mkdir -p .secrets
-  ls -a 
-  cp $GCP_CI_SERVICE_KEY .secrets/service-key.json
+  mkdir -p .secrets && echo $GCP_SERVICE_KEY > .secrets/service-key.json
 fi
 
 export GOOGLE_APPLICATION_CREDENTIALS=.secrets/service-key.json
