@@ -7,49 +7,28 @@ on:
       - main
 
 jobs:
-  checkout:
-    name: "checkout"
+  kubernetes:
+    name: "kubernetes deployment"
     runs-on: ubuntu-latest
+    env:
+      GCP_CI_SERVICE_KEY: ${{ secrets.GCP_CI_SERVICE_KEY }}
+      CERT_MANAGER_KEY: ${{ secrets.CERT_MANAGER_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-  plan:
-    name: "Deploy Kubernetes"
-    runs-on: ubuntu-latest
-    env:
-      GCP_CI_SERVICE_KEY: ${{ secrets.GCP_CI_SERVICE_KEY }}
-    steps:
       - name: Plan
         run: |
           /bin/sh .scripts/plan.sh
 
-  apply:
-    name: "Apply"
-    runs-on: ubuntu-latest
-    env:
-      GCP_CI_SERVICE_KEY: ${{ secrets.GCP_CI_SERVICE_KEY }}
-    steps:
       - name: apply
         run: |
           /bin/sh .scripts/apply.sh
 
-  authenticate:
-    name: authenticate
-    runs-on: ubuntu-latest
-    env:
-      GCP_CI_SERVICE_KEY: ${{ secrets.GCP_CI_SERVICE_KEY }}
-    steps:
       - name: authenticate
         run: |
           /bin/sh .scripts/authenticate.sh
 
-  deploy:
-    name: deploy
-    runs-on: ubuntu-latest
-    env:
-      CERT_MANAGER_KEY: ${{ secrets.CERT_MANAGER_KEY }}
-    steps:
       - name: deploy
         run: |
           export KUBECONFIG=kube.conf
