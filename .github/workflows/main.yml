@@ -1,0 +1,51 @@
+name: kubernetes-gcp-infrastructure
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  plan:
+    name: "Deploy Kubernetes"
+    runs-on: ubuntu-latest
+    env:
+      GCP_CI_SERVICE_KEY: ${{ secrets.GCP_CI_SERVICE_KEY }}
+    steps:
+      - name: Plan
+        run: |
+          /bin/sh .scripts/plan.sh
+
+  apply:
+    name: "Apply"
+    runs-on: ubuntu-latest
+    env:
+      GCP_CI_SERVICE_KEY: ${{ secrets.GCP_CI_SERVICE_KEY }}
+    steps:
+      - name: apply
+        run: |
+          /bin/sh .scripts/apply.sh
+
+  authenticate:
+    name: authenticate
+    runs-on: ubuntu-latest
+    env:
+      GCP_CI_SERVICE_KEY: ${{ secrets.GCP_CI_SERVICE_KEY }}
+    steps:
+      - name: authenticate
+        run: |
+          /bin/sh .scripts/authenticate.sh
+
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    env:
+      CERT_MANAGER_KEY: ${{ secrets.CERT_MANAGER_KEY }}
+    steps:
+      - name: deploy
+        run: |
+          export KUBECONFIG=kube.conf
+          sed -i -e "s/{{CERT_MANAGER_KEY}}/${CERT_MANAGER_KEY}/" ./k8s/cert-manager-issuer/values.yaml
+          /bin/sh .scripts/k8s.sh
+
