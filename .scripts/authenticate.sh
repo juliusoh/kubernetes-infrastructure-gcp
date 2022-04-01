@@ -12,12 +12,12 @@
 # If the GCP_CI_SERVICE_KEY is NOT present then this must be running locally and use local credentials
 ###########################################
 
-if test "$GCP_CI_SERVICE_KEY"
-then
-  gcloud auth activate-service-account --key-file $GCP_CI_SERVICE_KEY
-else
-  gcloud init
-fi
+# if test "$GCP_CI_SERVICE_KEY"
+# then
+#   gcloud auth activate-service-account --key-file $GCP_CI_SERVICE_KEY
+# else
+#   gcloud init
+# fi
 
 ###########################################
 # Connect to cluster

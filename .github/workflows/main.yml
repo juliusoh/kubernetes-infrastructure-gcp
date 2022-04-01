@@ -26,6 +26,10 @@ jobs:
           /bin/bash .scripts/apply.sh
 
       - name: authenticate
+        uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          credentials_json: ${{ secrets.GCP_CI_SERVICE_KEY }}
         run: |
           /bin/bash .scripts/authenticate.sh
 
