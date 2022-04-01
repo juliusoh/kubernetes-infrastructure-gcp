@@ -7,6 +7,13 @@ on:
       - main
 
 jobs:
+  checkout:
+    name: "checkout"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
   plan:
     name: "Deploy Kubernetes"
     runs-on: ubuntu-latest
@@ -48,4 +55,3 @@ jobs:
           export KUBECONFIG=kube.conf
           sed -i -e "s/{{CERT_MANAGER_KEY}}/${CERT_MANAGER_KEY}/" ./k8s/cert-manager-issuer/values.yaml
           /bin/sh .scripts/k8s.sh
-
